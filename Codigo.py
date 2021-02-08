@@ -21,3 +21,13 @@ import xlsxwriter
 from datetime import datetime
 from matplotlib import pyplot as plt 
 
+def gms_dec(angulo):
+    grados = int(angulo)
+    aux = (angulo - grados)*100
+    minutos = int(aux)
+    segundos = (aux - minutos)*100
+
+    angulo_dec = grados + (minutos/60) + (segundos/3600)
+
+    return angulo_dec
+
