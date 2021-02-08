@@ -11,3 +11,13 @@
 #    Solicitar las coordenadas de los puntos de las líneas de referencia y finalización.
 # g. El resultado del cálculo y el ajuste deben guardarse en un archivo de texto en la misma ruta del archivo que contiene los datos.
 # h. Dibujar la poligonal a través de un archivo Geojson, json o en la consola.
+
+import csv
+import os
+import math
+import json
+import requests
+import xlsxwriter
+from datetime import datetime
+from matplotlib import pyplot as plt 
+
