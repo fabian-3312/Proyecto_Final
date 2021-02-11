@@ -42,3 +42,30 @@ def dec_gms(angulo_dec):
     
     return angulo_gms
 
+def acimut(x1, y1, x2, y2):
+    dx = x2 - x1
+    dy = y2 - y1
+    
+    if dy != 0:
+        rumbo = math.degrees(math.atan(dx/dy)
+        if dy > 0 and dy > 0:
+            acimut = rumbo
+        elif dx > 0 an dy < 0:
+            acimut = 180 + rumbo
+        elif dx < 0 and dy < 0:
+            acimut = 180 + rumbo
+        elif dx < 0 and dy > 0:
+            acimut = 360 + rumbo
+        elif dx == 0 and dy > 0:
+            acimut = 0
+        elif dx == 0 and dy < 0:
+            acimut = 180
+    else:
+        if dx > 0:
+            acimut = 90
+        elif dx < 0:
+            acimut = 270
+        else:
+            acimut = -1 
+                             
+    return acimut                             
