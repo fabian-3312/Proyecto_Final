@@ -68,4 +68,13 @@ def acimut(x1, y1, x2, y2):
         else:
             acimut = -1 
                              
-    return acimut                             
+    return acimut     
+
+def  proyecciones(acimut, distancia):
+    acimut = math.radians(acimut)
+    
+    valor_proyecciones = []
+    valor_proyecciones.append(math.sin(acimut)*distancia)
+    valor_proyecciones.append(math.cos(acimut)*distancia)
+    
+    return valor_proyecciones 
