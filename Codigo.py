@@ -47,7 +47,7 @@ def acimut(x1, y1, x2, y2):
     dy = y2 - y1
     
     if dy != 0:
-        rumbo = math.degrees(math.atan(dx/dy)
+        rumbo = math.degrees(math.atan(dx/dy))
         if dy > 0 and dy > 0:
             acimut = rumbo
         elif dx > 0 an dy < 0:
