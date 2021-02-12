@@ -35,7 +35,7 @@ def dec_gms(angulo_dec):
     grados = int(angulo_dec)
     aux = (angulo_dec - grados)*60
     minutos = int(aux)
-    segundos round((aux - minutos)*3600, 0)
+    segundos = round((aux - minutos)*3600, 0)
     
     # Definimos los grados minuto y segundos en un espacion determinado con su respectivo simbolo
     angulo_gms = '{:03d}'.format(grados)+'°'+'{:02d}'.format(minutos)+"'"+'{:01d}'.format(segundos)+'"'
