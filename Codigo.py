@@ -78,3 +78,9 @@ def  proyecciones(acimut, distancia):
     valor_proyecciones.append(math.cos(acimut)*distancia)
     
     return valor_proyecciones 
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main(
