@@ -14,3 +14,6 @@
 
 # Descripcion
  >[Para este proyecto queremos generar un programa utilizando la herramienta de python, que nos permita realizar el calculo del ajuste de poligonales tanto cerradas como abiertas, teniendo en cuenta procedimientos como el ajuste de brujula o transito si la poligonal llegase a ser cerrada o de lo contrario utilizando el método de Crandall. Esto con finalidad de facilitar al maximo al usuario final una practica y rapida manera de llevar este proceso a cabo sin errores]
+
+# Pasos para utilizar el programa
+-[ ]
