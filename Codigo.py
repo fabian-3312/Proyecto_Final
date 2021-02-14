@@ -84,3 +84,15 @@ def main():
 
 if __name__ == '__main__':
     main()
+def  acimut_poligonal(acimut_anterior, angulo_observado):
+    if acimut_anterior >= 180:
+        contra_acimut = acimut_anterior -180
+    else: 
+        contra_acimut = acimut_anterior + 180
+  
+    acimut = contra_acimut + angulo_observado
+
+if acimut >= 360:
+    acimut = acimut-360
+    
+return acimut 
