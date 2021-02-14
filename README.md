@@ -29,6 +29,8 @@ a continuación los pasos a seguir al momento de usar el código.
  1. Descargue **paython** en la versión de acuerdo a las características que se adapten a su equipó.     [link de python](<https://www.python.org/downloads)
  2. Descargue **VISUAL STUDIO CODE**   [link de Visual Studio Code](<https://code.visualstudio.com/download)
  3. Para comenzar abrimos el editor de python ( **Visual Studio Code**) y nos aparece al lado izquierdo la opción de crear una nueva carpeta. Digitamos el nombre que deseamos sin olvidar que se debe escribir el .py ejemplo:(antecedentes.py) y empezamos a ejecutar el código.
+ 4. Recuerde que puede usar otro editor que sea de su preferencia dentro de ellos, también se encuentra **jupyterNotebook**
+ 
  # **COMANDOS**
  ## **TIPO DE DATOS**
  **str**= secuencia de caracteres
