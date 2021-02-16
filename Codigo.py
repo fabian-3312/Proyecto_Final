@@ -102,3 +102,49 @@ def main():
 
 if __name__ == '__main__':
     main()
+ 
+def brujula():
+    
+    print()   
+    print()
+    print('='*173)
+    print()
+    print('{:^173}'.format('A J U S T E  D E  P O L I G O N A L  P O R  E L M E T O D O  D E B R U J U L A'))
+    print()
+    print('='*173)
+    print()
+        
+    auxiliar = r
+    file = input(" Indicar la ruta del archivo, ejemplo({}):".format(auxiliar))
+    ruta = os.path.normpath(file)
+        
+    deltas = cant_deltas(ruta)
+    ang_externos = int((input('¿Angulos externos [1=si] [0=no]: '))
+   
+        
+    # calcular la sumatoria toerica de angulos 
+    if ang_externos == 1:
+        suma_teorica_ang = (deltas + 2)*180
+    else: 
+        suma_teorica_ang = (deltas - 2)*180
+        
+    # soliciya las coordenadas de la linea de referencia 
+        
+    x_inicio = float(input('Digite la coordenada x del punto de inicio: '))
+    y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
+    x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
+    x_referencia = float(input('Digite la coordenada y del punto de referencia: '))
+                       
+        
+                           
+                          
+        
+       
+    
+    
+    
+    
+    
+    
+    
+    
