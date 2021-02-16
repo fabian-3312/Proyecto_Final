@@ -31,6 +31,7 @@ def gms_dec(angulo):
 
     return angulo_dec
 
+
 def dec_gms(angulo_dec):
     grados = int(angulo_dec)
     aux = (angulo_dec - grados)*60
@@ -41,6 +42,7 @@ def dec_gms(angulo_dec):
     angulo_gms = '{:03d}'.format(grados)+'°'+'{:02d}'.format(minutos)+"'"+'{:01d}'.format(segundos)+'"'
     
     return angulo_gms
+
 
 def acimut(x1, y1, x2, y2):
     dx = x2 - x1
@@ -70,6 +72,7 @@ def acimut(x1, y1, x2, y2):
                              
     return acimut     
 
+
 def  proyecciones(acimut, distancia):
     acimut = math.radians(acimut)
     
@@ -79,11 +82,7 @@ def  proyecciones(acimut, distancia):
     
     return valor_proyecciones 
 
-def main():
-    pass
 
-if __name__ == '__main__':
-    main()
 def  acimut_poligonal(acimut_anterior, angulo_observado):
     if acimut_anterior >= 180:
         contra_acimut = acimut_anterior -180
@@ -92,7 +91,14 @@ def  acimut_poligonal(acimut_anterior, angulo_observado):
   
     acimut = contra_acimut + angulo_observado
 
-if acimut >= 360:
-    acimut = acimut-360
+    if acimut >= 360:
+        acimut = acimut-360
     
-return acimut 
+    return acimut 
+
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()
