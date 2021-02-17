@@ -97,12 +97,6 @@ def  acimut_poligonal(acimut_anterior, angulo_observado):
     return acimut 
 
 
-def main():
-    pass
-
-if __name__ == '__main__':
-    main()
- 
 def brujula():
     
     print()   
@@ -134,6 +128,31 @@ def brujula():
     y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
     x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
     x_referencia = float(input('Digite la coordenada y del punto de referencia: '))
+                       
+                       
+def main():
+    print('Maritzabel Cordoba Giraldo','\n', 'Cod.:20191131053','\n','Cristian Camilo Casallas Beltrán','\n', 'Cod.:20201131025','\n','Fabian Esteban Reyes Bejarano','\n', 'Cod.:20201131048','\n','\n','Evelio Luis Madera Arteaga','\n','Universidad distrital Francisco Jose de Caldas')
+    print('='*173)
+    print('RECOMENDACION: SU ARCHIVO CSV DEBE TENER:','\n','-EL NOMBRE DE LOS PUNTOS DEBE ESTAR COMO "Delta"','\n','-EL NOMBRE DE LOS ANGULOS DEBE ESTAR COMO "Angulo"','\n','-EL NOMBRE DE LAS LONGITUDES DEBE ESTAR COMO "Distancia"','\n','LAS PALABRAS SE ESCRIBEN TALCUAL ESTAN ANTERIORMENTE Y EN EL MISMO ORDEN SIN ESPACIOS','\n')
+    proceso = float(input('Desea realizar un ajuste de poligonal [Si=1][No=0]: '))
+                       
+    if proceso == 1:
+        print('='*173)
+        solucion = float(input('¿Su poligonal es abierta o cerrada? [Abierta=1][Cerrada=0]: '))
+        if solucion == 1:
+            print('='*173)
+            crandall()
+        else:
+            print('='*173)
+            brujula()
+    else:
+        print('='*140)
+        print('PROGRAMA TERMINADO','\n','GRACIAS.')
+        print('='*140)          
+                       
+if __name__ == '__main__':
+    main()
+ 
                        
         
                            
