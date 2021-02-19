@@ -32,6 +32,13 @@ def gms_dec(angulo):
     return angulo_dec
 
 
+def cant_deltas(archivo):
+    with open(archivo, newline='') as File:
+        reader = csv.DictReader(File)
+        deltas = [fila['Delta'] for fila in reader]
+    return len(deltas)-1
+
+
 def dec_gms(angulo_dec):
     grados = int(angulo_dec)
     aux = (angulo_dec - grados)*60
@@ -44,7 +51,7 @@ def dec_gms(angulo_dec):
     return angulo_gms
 
 
-def acimut(x1, y1, x2, y2):
+def acimut_linea(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
     
@@ -52,7 +59,7 @@ def acimut(x1, y1, x2, y2):
         rumbo = math.degrees(math.atan(dx/dy))
         if dy > 0 and dy > 0:
             acimut = rumbo
-        elif dx > 0 an dy < 0:
+        elif dx > 0 and dy < 0:
             acimut = 180 + rumbo
         elif dx < 0 and dy < 0:
             acimut = 180 + rumbo
@@ -73,7 +80,7 @@ def acimut(x1, y1, x2, y2):
     return acimut     
 
 
-def  proyecciones(acimut, distancia):
+def proyecciones(acimut, distancia):
     acimut = math.radians(acimut)
     
     valor_proyecciones = []
@@ -83,7 +90,7 @@ def  proyecciones(acimut, distancia):
     return valor_proyecciones 
 
 
-def  acimut_poligonal(acimut_anterior, angulo_observado):
+def acimut_poligonal(acimut_anterior, angulo_observado):
     if acimut_anterior >= 180:
         contra_acimut = acimut_anterior -180
     else: 
@@ -113,7 +120,7 @@ def brujula():
     ruta = os.path.normpath(file)
         
     deltas = cant_deltas(ruta)
-    ang_externos = int((input('¿Angulos externos [1=si] [0=no]: '))
+    ang_externos = int(input('¿Angulos externos [1=si] [0=no]: '))
    
         
     # calcular la sumatoria toerica de angulos 
@@ -128,6 +135,8 @@ def brujula():
     y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
     x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
     x_referencia = float(input('Digite la coordenada y del punto de referencia: '))
+
+    acimut_ref =acimut
                        
                        
 def main():
