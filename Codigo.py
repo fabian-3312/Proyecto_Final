@@ -134,9 +134,20 @@ def brujula():
     x_inicio = float(input('Digite la coordenada x del punto de inicio: '))
     y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
     x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
-    x_referencia = float(input('Digite la coordenada y del punto de referencia: '))
+    y_referencia = float(input('Digite la coordenada y del punto de referencia: '))
 
-    acimut_ref =acimut
+    acimut_ref = acimut_linea(x_inicio, y_inicio, x_referencia, y_referencia)
+    print('\n','El azimut calculado es: {}°'.format(dec_gms(acimut_ref)))
+
+    print('La sumatoria teorica es: {}°'.format(suma_teorica_ang))
+
+    datos_medidos = []
+    datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG', 'AZIMUTH', 'PRY X', 'PRY Y', 'PRY X CORREG', 'PRY Y CORREG', 'COORD X', 'COORD Y'])
+
+    j = 0
+    sumang = 0.0
+    sumdist = 0.0
+    
                        
                        
 def main():
