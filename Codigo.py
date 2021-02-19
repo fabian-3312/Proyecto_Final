@@ -115,7 +115,7 @@ def brujula():
     print('='*173)
     print()
         
-    auxiliar = r
+    auxiliar = r'C:\Users\PC Smart\Downloads\POLIGONAL_CERRADA_1.csv'
     file = input(" Indicar la ruta del archivo, ejemplo({}):".format(auxiliar))
     ruta = os.path.normpath(file)
         
