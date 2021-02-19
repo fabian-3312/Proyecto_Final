@@ -148,6 +148,39 @@ def brujula():
     sumang = 0.0
     sumdist = 0.0
     
+with open(ruta, newline='')as File:
+    reader = csv.DictReader(File)
+    for row in reader: 
+        nombre_delta = row['Delta']
+        ang_observado = float(row['Angulo'])
+        distancia = float(row)['Distancia'])
+        datos_linea = [nombre_delta,ang_observado, distancia, gms_dec(ang_observado)]
+        datos_medidos.append(datos_linea.copy())
+        
+        if j != 0:
+            sumdist = sumdist + distancia
+            sumang = sumang + datos_linea[3]
+            j += 1
+         else: 
+            j += 1
+  
+error_ang = suma_teorica_ang - sumang
+correccion_ang = error_ang / deltas
+
+print('El error angular es: ', error_ang)
+print('La correccion angular es:' , correccion_ang)
+
+datos_medidos[1].append(datos_medidos[1][3])
+
+# calculo los azimut
+i = 0
+suma_px = 0.0
+suma_py = 0.0
+proyec_punto = []
+
+for dato in datos_medidos: 
+    
+    
                        
                        
 def main():
