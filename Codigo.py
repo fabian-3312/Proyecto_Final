@@ -178,7 +178,39 @@ def brujula():
     suma_py = 0.0
     proyec_punto = []
 
-    for dato in datos_medidos:    
+    for dato in datos_medidos: 
+        
+        if i < 2:
+            i += 1
+            continue
+        
+        datos_medidos[i].append(datos_medidos[i][3] + coreccion_ang)
+
+        if datos_medidos[i-1][4] >= 180:
+            acimut_deltas = datos_medidos[i-1][5] - 180 + datos_metidos[i][4]
+        else:
+            acimut_deltas = datos_metidos[i-1][5] + 180 + datos_metidos[i][4]
+
+        if acimut_deltas >= 360:
+            acimut_deltas -=360
+
+        datos_metidos[i].append(acimut_deltas)
+
+        proyec_punto = proyecciones(acimut_deltas, datos_metidos[i][2])
+
+        datos_metidos[i].append(proyec_punto[0])
+        datos_metidos[i].append(proyec_punto[1])
+
+        suma_px += datos_medidos[i][6]
+        sume_py += datos_metidos[i][7]
+
+        i += 1
+    
+    print()
+
+    datos_metidos[1][:] += [0. 0, 0, 0, x_incicio, y_inicio]
+
+    i = 0   
                        
                        
 def main():
@@ -204,39 +236,9 @@ def main():
 if __name__ == '__main__':
     main()
  
-for dato in datos_medidos:
-    
-    if i < 2:
-        i += 1
-        continue
-        
-    datos_medidos[i].append(datos_medidos[i][3] + coreccion_ang)
-    
-    if datos_medidos[i-1][4] >= 180:
-        acimut_deltas = datos_medidos[i-1][5] - 180 + datos_metidos[i][4]
-    else:
-        acimut_deltas = datos_metidos[i-1][5] + 180 + datos_metidos[i][4]
-        
-    if acimut_deltas >= 360:
-        acimut_deltas -=360
-        
-    datos_metidos[i].append(acimut_deltas)
-    
-    proyec_punto = proyecciones(acimut_deltas, datos_metidos[i][2])
-    
-    datos_metidos[i].append(proyec_punto[0])
-    datos_metidos[i].append(proyec_punto[1])
-    
-    suma_px += datos_medidos[i][6]
-    sume_py += datos_metidos[i][7]
-    
-    i += 1
-    
-print()
 
-datos_metidos[1][:] += [0. 0, 0, 0, x_incicio, y_inicio]
-
-i = 0
+    
+    
       
                            
                           
