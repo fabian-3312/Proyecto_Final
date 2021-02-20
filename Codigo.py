@@ -225,7 +225,7 @@ for dato in datos_medidos:
     proyec_punto = proyecciones(acimut_deltas, datos_metidos[i][2])
     
     datos_metidos[i].append(proyec_punto[0])
-    datos_metidos[i].append(proyec_punto[0])
+    datos_metidos[i].append(proyec_punto[1])
     
     suma_px += datos_medidos[i][6]
     sume_py += datos_metidos[i][7]
