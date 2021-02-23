@@ -110,7 +110,7 @@ def brujula():
     print()
     print('='*173)
     print()
-    print('{:^173}'.format('A J U S T E  D E  P O L I G O N A L  P O R  E L M E T O D O  D E B R U J U L A'))
+    print('{:^173}'.format('A J U S T E  D E  P O L I G O N A L  P O R  E L  M E T O D O  D E B R U J U L A'))
     print()
     print('='*173)
     print()
@@ -244,7 +244,19 @@ def brujula():
     with open(salida, 'w', newline='') as csvfile:            
         writer = csv.DictWriter(csvfile, fieldnames=encabezado)
         writer.writeheader()
-                       
+        
+        for dato in datos_medidos:
+            if i == 0:
+                i += 1
+                continue
+            print('{:^10}'. format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:10}'.format(dec_gms(dato[4])), '{:10}'.format(dec_gms(dato[5])),'{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]),sep='\t')
+            datos={'Delta':dato[0], 'Angulo_Obsrvado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(deg_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'proy_X':'{:+010.3f'.format(dato[6]),''Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
+            writer.writerow(datos)
+            
+            i +=1
+    
+    print('='*173)
+                   
 def main():
     print('Maritzabel Cordoba Giraldo','\n', 'Cod.:20191131053','\n','Cristian Camilo Casallas Beltrán','\n', 'Cod.:20201131025','\n','Fabian Esteban Reyes Bejarano','\n', 'Cod.:20201131048','\n','\n','Evelio Luis Madera Arteaga','\n','Universidad distrital Francisco Jose de Caldas')
     print('='*173)
