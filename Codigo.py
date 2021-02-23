@@ -211,7 +211,23 @@ def brujula():
     datos_metidos[1][:] += [0. 0, 0, 0, x_incicio, y_inicio]
 
     i = 0   
-                       
+    
+for dato in datos_metidos:
+    
+    if i < 2:
+        i += 1
+        continue
+        
+    # proyecciones corregidas
+    datos_metidos[i].append(datos_metidos[i][6] -(suma_px / sumdist)*datos_metidos[i][2])
+    datos_metidos[i].append(datos_metidos[i][7] -(suma_py / sumdist)*datos_metidos[i][2]) 
+
+    # coordenadas
+    datos_metidos[i].append(datos_metidos[i-1][10] + datos_metidos[i][8])
+
+    datos_metidos[i].append(datos_metidos[i-1][11] + datos_metidos[i][9])
+
+    i += 1
                        
 def main():
     print('Maritzabel Cordoba Giraldo','\n', 'Cod.:20191131053','\n','Cristian Camilo Casallas Beltrán','\n', 'Cod.:20201131025','\n','Fabian Esteban Reyes Bejarano','\n', 'Cod.:20201131048','\n','\n','Evelio Luis Madera Arteaga','\n','Universidad distrital Francisco Jose de Caldas')
