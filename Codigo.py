@@ -210,7 +210,12 @@ def brujula():
 
     datos_metidos[1][:] += [0. 0, 0, 0, x_incicio, y_inicio]
 
-    i = 0   
+    i = 0  
+    encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_X','Proy_Y','Proy_Corregida_X','Proy_Corregida_Y','Coord_X','Coord_Y']
+    salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA.csv'.format(os.path.basename(ruta).split('.')[0]))
+    with open(salida, 'w', newline='') as csvfile:            
+        writer = csv.DictWriter(csvfile, fieldnames=encabezado)
+        writer.writeheader()
     
     for dato in datos_metidos:
         
