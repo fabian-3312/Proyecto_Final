@@ -43,10 +43,10 @@ def dec_gms(angulo_dec):
     grados = int(angulo_dec)
     aux = (angulo_dec - grados)*60
     minutos = int(aux)
-    segundos = round((aux - minutos)*3600, 0)
+    segundos = round((aux - minutos)*60, 0)
     
     # Definimos los grados minuto y segundos en un espacion determinado con su respectivo simbolo
-    angulo_gms = '{:03d}'.format(grados)+'°'+'{:02d}'.format(minutos)+"'"+'{:04.1f}'.format(segundos)+'"'
+    angulo_gms = '{:03d}'.format(grados) + '°' + '{:02d}'.format(minutos) + "'" + '{:04.1f}'.format(segundos) + '"'
     
     return angulo_gms
 
@@ -146,7 +146,7 @@ def brujula():
     print('La sumatoria teorica es: {}°'.format(suma_teorica_ang))
 
     datos_medidos = []
-    datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG', 'AZIMUTH', 'PRY X', 'PRY Y', 'PRY X CORREG', 'PRY Y CORREG', 'COORD X', 'COORD Y'])
+    datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG', 'AZIMUTH', 'PRY X', 'PRY Y', 'PRY X COREG', 'PRY Y COREG', 'COORD X', 'COORD Y'])
 
     j = 0
     sumang = 0.0
