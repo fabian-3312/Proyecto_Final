@@ -124,7 +124,7 @@ def brujula():
     ruta = os.path.normpath(file)
         
     deltas = cant_deltas(ruta)
-    ang_externos = int(input('¿Angulos externos [1=si] [0=no]: '))
+    ang_externos = int(input('¿Angulos externos? [1=si] [0=no]: '))
    
         
     # calcular la sumatoria toerica de angulos 
@@ -262,6 +262,10 @@ def brujula():
     print('='*173)
                    
 def main():
+    print('='*173)
+    print('{:^173}'.format('P R O Y E C T O  F I N A L'))
+    print('{:^173}'.format('L O G I C A  D E  P R O G R A M A C I O N'))
+    print('='*173)
     print('Maritzabel Cordoba Giraldo','\n', 'Cod.:20191131053','\n','Cristian Camilo Casallas Beltrán','\n', 'Cod.:20201131025','\n','Fabian Esteban Reyes Bejarano','\n', 'Cod.:20201131048','\n','\n','Evelio Luis Madera Arteaga','\n','Universidad distrital Francisco Jose de Caldas')
     print('='*173)
     print('RECOMENDACION: SU ARCHIVO CSV DEBE TENER:','\n','-EL NOMBRE DE LOS PUNTOS DEBE ESTAR COMO "Delta"','\n','-EL NOMBRE DE LOS ANGULOS DEBE ESTAR COMO "Angulo"','\n','-EL NOMBRE DE LAS LONGITUDES DEBE ESTAR COMO "Distancia"','\n','LAS PALABRAS SE ESCRIBEN TALCUAL ESTAN ANTERIORMENTE Y EN EL MISMO ORDEN SIN ESPACIOS','\n')
@@ -277,9 +281,10 @@ def main():
             print('='*173)
             brujula()
     else:
-        print('='*140)
-        print('PROGRAMA TERMINADO','\n','GRACIAS.')
-        print('='*140)          
+        print('='*173)
+        print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+        print('{:^173}'.format('G R A C I A S'))
+        print('='*173)         
                        
 if __name__ == '__main__':
     main()
