@@ -269,27 +269,27 @@ def main():
     print('Maritzabel Cordoba Giraldo','\n', 'Cod.:20191131053','\n','Cristian Camilo Casallas Beltrán','\n', 'Cod.:20201131025','\n','Fabian Esteban Reyes Bejarano','\n', 'Cod.:20201131048','\n','\n','Evelio Luis Madera Arteaga','\n','Universidad distrital Francisco Jose de Caldas')
     print('='*173)
     print('RECOMENDACION: SU ARCHIVO CSV DEBE TENER:','\n','-EL NOMBRE DE LOS PUNTOS DEBE ESTAR COMO "Delta"','\n','-EL NOMBRE DE LOS ANGULOS DEBE ESTAR COMO "Angulo"','\n','-EL NOMBRE DE LAS LONGITUDES DEBE ESTAR COMO "Distancia"','\n','LAS PALABRAS SE ESCRIBEN TALCUAL ESTAN ANTERIORMENTE Y EN EL MISMO ORDEN SIN ESPACIOS','\n')
-    proceso = float(input('Desea realizar un ajuste de poligonal [Si=1][No=0]: '))
+    proceso = input('Desea realizar un ajuste de poligonal [Si=1][No=0]: ')
                        
-    if proceso == 1:
+    if proceso == '1':
         print('='*173)
-        solucion = float(input('¿Su poligonal es abierta o cerrada? [Abierta=1][Cerrada=0]: '))
-        if solucion == 1:
+        solucion = input('¿Su poligonal es abierta o cerrada? [Abierta=1][Cerrada=0]: ')
+        if solucion == '1':
             print('='*173)
             crandall()
-        elif solucion == 0:
+        elif solucion == '0':
             print('='*173)
             brujula()
-        elif solucion != 1 or solucion != 0:
+        elif solucion != '1' or solucion != '0':
             print('='*173)
             print('El numero digitado no es valido, intente nuevamente')
             print('='*173)
-    elif proceso == 0:
+    elif proceso == '0':
         print('='*173)
         print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
         print('{:^173}'.format('G R A C I A S'))
         print('='*173)  
-    elif proceso != 0 or procero != 1:
+    elif proceso != '0' or procero != '1':
         print('='*173)
         print('El numero digitado no es valido, intente nuevamente')
         print('='*173)
