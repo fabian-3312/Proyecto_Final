@@ -7,7 +7,7 @@
 #    Si el método de ajuste es por el método de la brújula o de tránsito.
 #    Solicitar las coordenadas de los puntos de la línea de referencia de la poligonal.
 # f. Si la poligonal es abierta:
-#	   el ajuste realizarse por el método de Crandall.
+#	 el ajuste realizarse por el método de Crandall.
 #    Solicitar las coordenadas de los puntos de las líneas de referencia y finalización.
 # g. El resultado del cálculo y el ajuste deben guardarse en un archivo de texto en la misma ruta del archivo que contiene los datos.
 # h. Dibujar la poligonal a través de un archivo Geojson, json o en la consola.
@@ -157,7 +157,7 @@ def brujula():
         for row in reader: 
             nombre_delta = row['Delta']
             ang_observado = float(row['Angulo'])
-            distancia = float(row)['Distancia'])
+            distancia = float(row['Distancia'])
             datos_linea = [nombre_delta,ang_observado, distancia, gms_dec(ang_observado)]
             datos_medidos.append(datos_linea.copy())
 
@@ -165,7 +165,7 @@ def brujula():
                 sumdist = sumdist + distancia
                 sumang = sumang + datos_linea[3]
                 j += 1
-             else: 
+            else: 
                 j += 1
     
     error_ang = suma_teorica_ang - sumang
@@ -188,48 +188,48 @@ def brujula():
             i += 1
             continue
         
-        datos_medidos[i].append(datos_medidos[i][3] + coreccion_ang)
+        datos_medidos[i].append(datos_medidos[i][3] + correccion_ang)
 
         if datos_medidos[i-1][4] >= 180:
-            acimut_deltas = datos_medidos[i-1][5] - 180 + datos_metidos[i][4]
+            acimut_deltas = datos_medidos[i-1][5] - 180 + datos_medidos[i][4]
         else:
-            acimut_deltas = datos_metidos[i-1][5] + 180 + datos_metidos[i][4]
+            acimut_deltas = datos_medidos[i-1][5] + 180 + datos_medidos[i][4]
 
         if acimut_deltas >= 360:
             acimut_deltas -=360
 
-        datos_metidos[i].append(acimut_deltas)
+        datos_medidos[i].append(acimut_deltas)
 
-        proyec_punto = proyecciones(acimut_deltas, datos_metidos[i][2])
+        proyec_punto = proyecciones(acimut_deltas, datos_medidos[i][2])
 
-        datos_metidos[i].append(proyec_punto[0])
-        datos_metidos[i].append(proyec_punto[1])
+        datos_medidos[i].append(proyec_punto[0])
+        datos_medidos[i].append(proyec_punto[1])
 
         suma_px += datos_medidos[i][6]
-        sume_py += datos_metidos[i][7]
+        sume_py += datos_medidos[i][7]
 
         i += 1
     
     print()
 
-    datos_metidos[1][:] += [0. 0, 0, 0, x_incicio, y_inicio]
+    datos_medidos[1][:] += [0, 0, 0, 0, x_inicio, y_inicio]
 
     i = 0  
     
-    for dato in datos_metidos:
+    for dato in datos_medidos:
         
         if i < 2:
             i += 1
             continue
             
         # proyecciones corregidas
-        datos_metidos[i].append(datos_metidos[i][6] -(suma_px / sumdist)*datos_metidos[i][2])
-        datos_metidos[i].append(datos_metidos[i][7] -(suma_py / sumdist)*datos_metidos[i][2]) 
+        datos_medidos[i].append(datos_medidos[i][6] -(suma_px / sumdist)*datos_medidos[i][2])
+        datos_medidos[i].append(datos_medidos[i][7] -(suma_py / sumdist)*datos_medidos[i][2]) 
     
         # coordenadas
-        datos_metidos[i].append(datos_metidos[i-1][10] + datos_metidos[i][8])
-    
-        datos_metidos[i].append(datos_metidos[i-1][11] + datos_metidos[i][9])
+        datos_medidos[i].append(datos_medidos[i-1][10] + datos_medidos[i][8])
+
+        datos_medidos[i].append(datos_medidos[i-1][11] + datos_medidos[i][9])
     
         i += 1
         
@@ -254,7 +254,7 @@ def brujula():
                 i += 1
                 continue
             print('{:^10}'. format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:10}'.format(dec_gms(dato[4])), '{:10}'.format(dec_gms(dato[5])),'{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]),sep='\t')
-            datos={'Delta':dato[0], 'Angulo_Obsrvado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(deg_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'proy_X':'{:+010.3f'.format(dato[6]),''Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
+            datos={'Delta':dato[0], 'Angulo_Obsrvado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'proy_X':'{:+010.3f}'.format(dato[6]),'Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
             writer.writerow(datos)
             
             i +=1
@@ -289,7 +289,7 @@ def main():
         print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
         print('{:^173}'.format('G R A C I A S'))
         print('='*173)  
-    elif proceso != '0' or procero != '1':
+    elif proceso != '0' or proceso != '1':
         print('='*173)
         print('El numero digitado no es valido, intente nuevamente')
         print('='*173)
