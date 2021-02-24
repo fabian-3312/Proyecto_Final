@@ -46,7 +46,7 @@ def dec_gms(angulo_dec):
     segundos = round((aux - minutos)*3600, 0)
     
     # Definimos los grados minuto y segundos en un espacion determinado con su respectivo simbolo
-    angulo_gms = '{:03d}'.format(grados)+'°'+'{:02d}'.format(minutos)+"'"+'{:01d}'.format(segundos)+'"'
+    angulo_gms = '{:03d}'.format(grados)+'°'+'{:02d}'.format(minutos)+"'"+'{:04.1f}'.format(segundos)+'"'
     
     return angulo_gms
 
@@ -175,6 +175,7 @@ def brujula():
     print('La correccion angular es:' , correccion_ang)
 
     datos_medidos[1].append(datos_medidos[1][3])
+    datos_medidos[1].append(acimut_ref + datos_medidos[1][3])
 
     # calculo los azimut
     i = 0
@@ -206,7 +207,7 @@ def brujula():
         datos_medidos[i].append(proyec_punto[1])
 
         suma_px += datos_medidos[i][6]
-        sume_py += datos_medidos[i][7]
+        suma_py += datos_medidos[i][7]
 
         i += 1
     
@@ -254,7 +255,7 @@ def brujula():
                 i += 1
                 continue
             print('{:^10}'. format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:10}'.format(dec_gms(dato[4])), '{:10}'.format(dec_gms(dato[5])),'{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]),sep='\t')
-            datos={'Delta':dato[0], 'Angulo_Obsrvado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'proy_X':'{:+010.3f}'.format(dato[6]),'Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
+            datos={'Delta':dato[0], 'Angulo_Observado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'Proy_X':'{:+010.3f}'.format(dato[6]),'Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
             writer.writerow(datos)
             
             i +=1
