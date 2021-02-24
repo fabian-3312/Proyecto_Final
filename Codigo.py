@@ -104,6 +104,10 @@ def acimut_poligonal(acimut_anterior, angulo_observado):
     return acimut 
 
 
+def crandall():
+    pass
+
+
 def brujula():
     
     print()   
