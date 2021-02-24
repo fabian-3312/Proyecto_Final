@@ -277,14 +277,22 @@ def main():
         if solucion == 1:
             print('='*173)
             crandall()
-        else:
+        elif solucion == 0:
             print('='*173)
             brujula()
-    else:
+        elif solucion != 1 or solucion != 0:
+            print('='*173)
+            print('El numero digitado no es valido, intente nuevamente')
+            print('='*173)
+    elif proceso == 0:
         print('='*173)
         print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
         print('{:^173}'.format('G R A C I A S'))
-        print('='*173)         
+        print('='*173)  
+    elif proceso != 0 or procero != 1:
+        print('='*173)
+        print('El numero digitado no es valido, intente nuevamente')
+        print('='*173)
                        
 if __name__ == '__main__':
     main()
