@@ -552,25 +552,9 @@ def main():
         print('='*173)  
     elif proceso != '0' or proceso != '1':
         print('='*173)
-        print('El numero digitado no es valido, intente nuevamente')
+        print('La opcion digitada no es valida, intente nuevamente')
         print('='*173)
                        
 if __name__ == '__main__':
     main()
  
-
-    
-    
-      
-                           
-                          
-        
-       
-    
-    
-    
-    
-    
-    
-    
-    
