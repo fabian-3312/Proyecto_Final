@@ -269,7 +269,7 @@ def brujula():
                 i = 0
 
                 encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_X','Proy_Y','Proy_Corregida_X','Proy_Corregida_Y','Coord_X','Coord_Y']
-                salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA.csv'.format(os.path.basename(ruta).split('.')[0]))
+                salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y"))))
                 with open(salida, 'w', newline='') as csvfile:            
                     writer = csv.DictWriter(csvfile, fieldnames=encabezado)
                     writer.writeheader()
@@ -311,7 +311,7 @@ def brujula():
                         continue
                     
                 print('='*173)
-                print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
+                print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO + AJUSTADO + FECHA')
                 print('='*173)
                 print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
                 print('='*173)
@@ -442,7 +442,7 @@ def brujula():
                 i = 0
 
                 encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_X','Proy_Y','Proy_Corregida_X','Proy_Corregida_Y','Coord_X','Coord_Y']
-                salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA.csv'.format(os.path.basename(ruta).split('.')[0]))
+                salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y"))))
                 with open(salida, 'w', newline='') as csvfile:            
                     writer = csv.DictWriter(csvfile, fieldnames=encabezado)
                     writer.writeheader()
@@ -484,7 +484,7 @@ def brujula():
                         continue
                     
                 print('='*173)
-                print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
+                print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO + AJUSTADO + FECHA')
                 print('='*173)
                 print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
                 print('='*173)
