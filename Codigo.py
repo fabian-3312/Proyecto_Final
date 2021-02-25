@@ -291,6 +291,13 @@ def brujula():
      print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
      print('='*173)
     i = 1
+    
+    fig = plt.figure(figsize=(6,6))
+    ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+    ax.set_title('POLIGONO AJUSTADO', color='0.1')
+    plt.plot(x, y) 
+    plt.plot(x, y, 'ro', linewidth=3)
+    plt.show()
                    
 def main():
     print('='*173)
