@@ -125,184 +125,207 @@ def brujula():
     exist = os.path.isfile(ruta)
 
     if exist == True:
+
+        arch = open(ruta, 'r')
+        linea = (arch.readline())
+
+        if linea != 'Delta,Angulo,Distancia\n':
+            print()
+            print('='*173)
+            print('Error al leer el archivo')
+            print()
+            print('Recuerde:','\n','El archivo debe ser (csv) de caso contrario no lo reconocera','\n','El archivo debe estar estructurado de la sigiente manera:')
+            print()
+            print('{:^19}'.format('Delta'),'{:^17}'.format('Angulo'),'{:^34}'.format('Distancia'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('Repetir N veces'),'{:^17}'.format('Repetir N veces'),'{:^34}'.format('Repetir N veces'), sep='|')
+            print('\n','Los nombres de la primera fila deben ser: Delta - Angulo - Distancia. Los nombres deben ser tal cual se muestran(sin comas, espacios o tildes)','\n','Favor realizar la cartera desde la primera final y la primera columna')
+            print('='*173)
+            print('{:^173}'.format('A R R E G L A R  A R C H I V O  Y  V O L E R  A  I N T E N T A R'))
+            print('{:^173}'.format('G R A C I A S'))
+            print('='*173)
+            print()
+
+        else:
         
-        deltas = cant_deltas(ruta)
-        ang_externos = input('¿Angulos externos? [1=si] [0=no]: ')
+            deltas = cant_deltas(ruta)
+            ang_externos = input('¿Angulos externos? [1=si] [0=no]: ')
+        
     
-
-        # calcular la sumatoria toerica de angulos 
-        if ang_externos == 1:
-            suma_teorica_ang = (deltas + 2)*180
-        else: 
-            suma_teorica_ang = (deltas - 2)*180
-
-        # soliciya las coordenadas de la linea de referencia 
-
-        x_inicio = float(input('Digite la coordenada x del punto de inicio: '))
-        y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
-        x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
-        y_referencia = float(input('Digite la coordenada y del punto de referencia: '))
-
-        acimut_ref = acimut_linea(x_inicio, y_inicio, x_referencia, y_referencia)
-        print('\n','El azimut calculado es: {}°'.format(dec_gms(acimut_ref)))
-
-        print('La sumatoria teorica es: {}°'.format(suma_teorica_ang))
-
-        datos_medidos = []
-        datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG', 'AZIMUTH', 'PRY X', 'PRY Y', 'PRY X COREG', 'PRY Y COREG', 'COORD X', 'COORD Y'])
-
-        j = 0
-        sumang = 0.0
-        sumdist = 0.0
-
-        with open(ruta, newline='')as File:
-            reader = csv.DictReader(File)
-            for row in reader: 
-                nombre_delta = row['Delta']
-                ang_observado = float(row['Angulo'])
-                distancia = float(row['Distancia'])
-                datos_linea = [nombre_delta,ang_observado, distancia, gms_dec(ang_observado)]
-                datos_medidos.append(datos_linea.copy())
-
-                if j != 0:
-                    sumdist = sumdist + distancia
-                    sumang = sumang + datos_linea[3]
-                    j += 1
-                else: 
-                    j += 1
-
-        error_ang = suma_teorica_ang - sumang
-        correccion_ang = error_ang / deltas
-
-        print('El error angular es: ', error_ang)
-        print('La correccion angular es:' , correccion_ang)
-
-        datos_medidos[1].append(datos_medidos[1][3])
-        datos_medidos[1].append(acimut_ref + datos_medidos[1][3])
-
-        # calculo los azimut
-        i = 0
-        suma_px = 0.0
-        suma_py = 0.0
-        proyec_punto = []
-
-        for dato in datos_medidos: 
-
-            if i < 2:
-                i += 1
-                continue
+            # calcular la sumatoria toerica de angulos 
+            if ang_externos == 1:
+                suma_teorica_ang = (deltas + 2)*180
+            else: 
+                suma_teorica_ang = (deltas - 2)*180
+    
+            # soliciya las coordenadas de la linea de referencia 
+    
+            x_inicio = float(input('Digite la coordenada x del punto de inicio: '))
+            y_inicio = float(input('Digite la coordenada y del punto de inicio: '))
+            x_referencia = float(input('Digite la coordenada x del punto de referencia: '))
+            y_referencia = float(input('Digite la coordenada y del punto de referencia: '))
+    
+            acimut_ref = acimut_linea(x_inicio, y_inicio, x_referencia, y_referencia)
+            print('\n','El azimut calculado es: {}°'.format(dec_gms(acimut_ref)))
+    
+            print('La sumatoria teorica es: {}°'.format(suma_teorica_ang))
+    
+            datos_medidos = []
+            datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG', 'AZIMUTH', 'PRY X', 'PRY Y', 'PRY X COREG', 'PRY Y COREG', 'COORD X', 'COORD Y'])
+    
+            j = 0
+            sumang = 0.0
+            sumdist = 0.0
+    
+            with open(ruta, newline='')as File:
+                reader = csv.DictReader(File)
+                for row in reader: 
+                    nombre_delta = row['Delta']
+                    ang_observado = float(row['Angulo'])
+                    distancia = float(row['Distancia'])
+                    datos_linea = [nombre_delta,ang_observado, distancia, gms_dec(ang_observado)]
+                    datos_medidos.append(datos_linea.copy())
+    
+                    if j != 0:
+                        sumdist = sumdist + distancia
+                        sumang = sumang + datos_linea[3]
+                        j += 1
+                    else: 
+                        j += 1
+    
+            error_ang = suma_teorica_ang - sumang
+            correccion_ang = error_ang / deltas
+    
+            print('El error angular es: ', error_ang)
+            print('La correccion angular es:' , correccion_ang)
+    
+            datos_medidos[1].append(datos_medidos[1][3])
+            datos_medidos[1].append(acimut_ref + datos_medidos[1][3])
+    
+            # calculo los azimut
+            i = 0
+            suma_px = 0.0
+            suma_py = 0.0
+            proyec_punto = []
+    
+            for dato in datos_medidos: 
             
-            datos_medidos[i].append(datos_medidos[i][3] + correccion_ang)
-
-            if datos_medidos[i-1][4] >= 180:
-                acimut_deltas = datos_medidos[i-1][5] - 180 + datos_medidos[i][4]
-            else:
-                acimut_deltas = datos_medidos[i-1][5] + 180 + datos_medidos[i][4]
-
-            if acimut_deltas >= 360:
-                acimut_deltas -=360
-
-            datos_medidos[i].append(acimut_deltas)
-
-            proyec_punto = proyecciones(acimut_deltas, datos_medidos[i][2])
-
-            datos_medidos[i].append(proyec_punto[0])
-            datos_medidos[i].append(proyec_punto[1])
-
-            suma_px += datos_medidos[i][6]
-            suma_py += datos_medidos[i][7]
-
-            i += 1
-
-        print()
-
-        datos_medidos[1][:] += [0, 0, 0, 0, x_inicio, y_inicio]
-
-        i = 0  
-
-        for dato in datos_medidos:
-
-            if i < 2:
-                i += 1
-                continue
-
-            # proyecciones corregidas
-            datos_medidos[i].append(datos_medidos[i][6] -(suma_px / sumdist)*datos_medidos[i][2])
-            datos_medidos[i].append(datos_medidos[i][7] -(suma_py / sumdist)*datos_medidos[i][2]) 
-
-            # coordenadas
-            datos_medidos[i].append(datos_medidos[i-1][10] + datos_medidos[i][8])
-
-            datos_medidos[i].append(datos_medidos[i-1][11] + datos_medidos[i][9])
-
-            i += 1
-
-        print()
-
-        print('='*173)
-        print('{:^10}'.format('DELTA'), '{:^8}'.format('ANGULO'), '{:^8}'.format('DISTANCIA'), '{:^10}'.format('ANGULO'), '{:^10}'.format('AZIMUTH'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^11}'.format('COORDEN'), '{:^11}'.format('COORDEN'), sep='\t')
-
-        print('{:^10}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('(m)'), '{:^10}'.format('CORREGIDO'), '{:^10}'.format(''), '{:^10}'.format('X'), '{:^10}'.format('Y'), '{:^10}'.format('CORR X'), '{:^10}'.format('CORR Y'), '{:^11}'.format('X'), '{:^11}'.format('Y'), sep='\t')
-        print('='*173)
-
-        i = 0
-
-        encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_X','Proy_Y','Proy_Corregida_X','Proy_Corregida_Y','Coord_X','Coord_Y']
-        salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA.csv'.format(os.path.basename(ruta).split('.')[0]))
-        with open(salida, 'w', newline='') as csvfile:            
-            writer = csv.DictWriter(csvfile, fieldnames=encabezado)
-            writer.writeheader()
-
-            for dato in datos_medidos:
-                if i == 0:
+                if i < 2:
                     i += 1
                     continue
-                print('{:^10}'. format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:10}'.format(dec_gms(dato[4])), '{:10}'.format(dec_gms(dato[5])),'{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]),sep='\t')
-                datos={'Delta':dato[0], 'Angulo_Observado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'Proy_X':'{:+010.3f}'.format(dato[6]),'Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
-                writer.writerow(datos)
-
-                i +=1
-
-        print('='*173)
-
-        d = 0
-        j = 1
-        x = []
-        y = []
-
-        for dato in datos_medidos:
-            if d < deltas:
-                if j < 2:
-                    x.append(x_referencia)
-                    y.append(y_referencia)
-                    x.append(x_inicio)
-                    y.append(y_inicio)
-                    j += 1
-
+                
+                datos_medidos[i].append(datos_medidos[i][3] + correccion_ang)
+    
+                if datos_medidos[i-1][4] >= 180:
+                    acimut_deltas = datos_medidos[i-1][5] - 180 + datos_medidos[i][4]
                 else:
-                    x.append(datos_medidos[j][10])
-                    y.append(datos_medidos[j][11])
-
-
-                    j += 1
-                    d += 1
-            else:
-                continue
-
-        print('='*173)
-        print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
-        print('='*173)
-        print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
-        print('='*173)
-
-        i = 1
-
-        fig = plt.figure(figsize=(6,6))
-        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
-        ax.set_title('POLIGONO AJUSTADO', color='0.1')
-        plt.plot(x, y) 
-        plt.plot(x, y, 'ro', linewidth=3)
-        plt.show()
+                    acimut_deltas = datos_medidos[i-1][5] + 180 + datos_medidos[i][4]
+    
+                if acimut_deltas >= 360:
+                    acimut_deltas -=360
+    
+                datos_medidos[i].append(acimut_deltas)
+    
+                proyec_punto = proyecciones(acimut_deltas, datos_medidos[i][2])
+    
+                datos_medidos[i].append(proyec_punto[0])
+                datos_medidos[i].append(proyec_punto[1])
+    
+                suma_px += datos_medidos[i][6]
+                suma_py += datos_medidos[i][7]
+    
+                i += 1
+    
+            print()
+    
+            datos_medidos[1][:] += [0, 0, 0, 0, x_inicio, y_inicio]
+    
+            i = 0  
+    
+            for dato in datos_medidos:
+            
+                if i < 2:
+                    i += 1
+                    continue
+                
+                # proyecciones corregidas
+                datos_medidos[i].append(datos_medidos[i][6] -(suma_px / sumdist)*datos_medidos[i][2])
+                datos_medidos[i].append(datos_medidos[i][7] -(suma_py / sumdist)*datos_medidos[i][2]) 
+    
+                # coordenadas
+                datos_medidos[i].append(datos_medidos[i-1][10] + datos_medidos[i][8])
+    
+                datos_medidos[i].append(datos_medidos[i-1][11] + datos_medidos[i][9])
+    
+                i += 1
+    
+            print()
+    
+            print('='*173)
+            print('{:^10}'.format('DELTA'), '{:^8}'.format('ANGULO'), '{:^8}'.format('DISTANCIA'), '{:^10}'.format('ANGULO'), '{:^10}'.format('AZIMUTH'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^11}'.format('COORDEN'), '{:^11}'.format('COORDEN'), sep='\t')
+    
+            print('{:^10}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('(m)'), '{:^10}'.format('CORREGIDO'), '{:^10}'.format(''), '{:^10}'.format('X'), '{:^10}'.format('Y'), '{:^10}'.format('CORR X'), '{:^10}'.format('CORR Y'), '{:^11}'.format('X'), '{:^11}'.format('Y'), sep='\t')
+            print('='*173)
+    
+            i = 0
+    
+            encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_X','Proy_Y','Proy_Corregida_X','Proy_Corregida_Y','Coord_X','Coord_Y']
+            salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA.csv'.format(os.path.basename(ruta).split('.')[0]))
+            with open(salida, 'w', newline='') as csvfile:            
+                writer = csv.DictWriter(csvfile, fieldnames=encabezado)
+                writer.writeheader()
+    
+                for dato in datos_medidos:
+                    if i == 0:
+                        i += 1
+                        continue
+                    print('{:^10}'. format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:10}'.format(dec_gms(dato[4])), '{:10}'.format(dec_gms(dato[5])),'{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]),sep='\t')
+                    datos={'Delta':dato[0], 'Angulo_Observado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])),'Acimut':'{:10}'.format(dec_gms(dato[5])),'Proy_X':'{:+010.3f}'.format(dato[6]),'Proy_Y':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_X':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_Y':'{:+010.3f}'.format(dato[9]),'Coord_X':'{:11.3f}'.format(dato[10]), 'Coord_Y':'{:11.3f}'.format(dato[11])}
+                    writer.writerow(datos)
+    
+                    i +=1
+    
+            print('='*173)
+    
+            d = 0
+            j = 1
+            x = []
+            y = []
+    
+            for dato in datos_medidos:
+                if d < deltas:
+                    if j < 2:
+                        x.append(x_referencia)
+                        y.append(y_referencia)
+                        x.append(x_inicio)
+                        y.append(y_inicio)
+                        j += 1
+    
+                    else:
+                        x.append(datos_medidos[j][10])
+                        y.append(datos_medidos[j][11])
+    
+    
+                        j += 1
+                        d += 1
+                else:
+                    continue
+                
+            print('='*173)
+            print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
+            print('='*173)
+            print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+            print('='*173)
+    
+            i = 1
+    
+            fig = plt.figure(figsize=(6,6))
+            ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+            ax.set_title('POLIGONO AJUSTADO', color='0.1')
+            plt.plot(x, y) 
+            plt.plot(x, y, 'ro', linewidth=3)
+            plt.show()
 
     else:
         print()
