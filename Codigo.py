@@ -261,6 +261,36 @@ def brujula():
             i +=1
     
     print('='*173)
+    
+    d = 0
+    j = 1
+    x = []
+    y = []
+
+    for dato in datos_medidos:
+        if d < deltas:
+            if j < 2:
+                x.append(x_referencia)
+                y.append(y_referencia)
+                x.append(x_inicio)
+                y.append(y_inicio)
+                j += 1
+                
+            else:
+                x.append(datos_metidos[j][10])
+                y.append(datos_metidos[j][11])
+                
+                
+                j += 1
+                d += 1
+        else:
+            continue
+     print('='*173)
+     print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
+     print('='*173)
+     print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+     print('='*173)
+    i = 1
                    
 def main():
     print('='*173)
