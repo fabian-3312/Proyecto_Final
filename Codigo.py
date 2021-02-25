@@ -277,19 +277,21 @@ def brujula():
                 j += 1
                 
             else:
-                x.append(datos_metidos[j][10])
-                y.append(datos_metidos[j][11])
+                x.append(datos_medidos[j][10])
+                y.append(datos_medidos[j][11])
                 
                 
                 j += 1
                 d += 1
         else:
             continue
-     print('='*173)
-     print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
-     print('='*173)
-     print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
-     print('='*173)
+
+    print('='*173)
+    print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO+AJUSTADO')
+    print('='*173)
+    print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+    print('='*173)
+    
     i = 1
     
     fig = plt.figure(figsize=(6,6))
