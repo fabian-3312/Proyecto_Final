@@ -105,7 +105,34 @@ def acimut_poligonal(acimut_anterior, angulo_observado):
 
 
 def crandall():
-    pass
+    
+    print()
+    print('='*173)
+    print()
+    print('{:^173}'.format('A J U S T E  D E  P O L I G O N A L  P O R  E L  M E T O D O  D E  C R A N D A L L'))
+    print()
+    print('='*173)
+    print()
+
+    auxiliar = r'C:\Users\PC Smart\Downloads\POLIGONAL_ABIERTA_1.csv'
+    file = input("Indicar la ruta del archivo, ejemplo({}): ".format(auxiliar))
+    ruta = os.path.normpath(file)
+
+    inic_gps_x = float(input('Ingrese la coordenada X del punto de referencia inicial: '))
+    inic_gps_y = float(input('Ingrese la coordenada Y del punto de referencia inicial: '))
+    inic_pol_x = float(input('Ingrese la coordenada X del punto inicial de la poligonal: '))
+    inic_pol_y = float(input('Ingrese la coordenada Y del punto inicial de la poligonal: '))
+    fin_gps_X = float(input('Ingrese la coordenada X del punto de referencia final: '))
+    fin_gps_Y = float(input('Ingrese la coordenada y del punto de referencia final: '))
+    fin_pol_X = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
+    fin_pol_Y = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
+
+    acimut_i = acimut_linea(inic_pol_x,inic_pol_y,inic_gps_x,inic_gps_y)
+    acimut_f = acimut_linea(fin_pol_x,fin_pol_y,fin_gps_x,fin_gps_y)
+
+    print(acimut_i)
+    print(acimut_f)
+
 
 
 def brujula():
