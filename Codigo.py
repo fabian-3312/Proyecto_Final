@@ -128,7 +128,7 @@ def crandall():
     fin_pol_Y = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
 
     acimut_i = acimut_linea(inic_pol_x,inic_pol_y,inic_gps_x,inic_gps_y)
-    acimut_f = acimut_linea(fin_pol_x,fin_pol_y,fin_gps_x,fin_gps_y)
+    acimut_f = acimut_linea(fin_pol_X,fin_pol_Y,fin_gps_X,fin_gps_Y)
 
     print(acimut_i)
     print(acimut_f)
@@ -148,71 +148,72 @@ def crandall():
             
     i = 0
 
-            suma_px = 0.0
-            suma_py = 0.0
-            proyec_punto = []
-            suma_correc1 = 0.0
-            suma_correc2 = 0.0
-            suma_correc3 = 0.0
+    suma_px = 0.0
+    suma_py = 0.0
+    proyec_punto = []
+    suma_correc1 = 0.0
+    suma_correc2 = 0.0
+    suma_correc3 = 0.0
 
-            d = 0
-            for dato in datos_crandall:
-                if d < deltas:
-                    if i < 1:
+    d = 0
+    
+    for dato in datos_crandall:
+        if d < deltas:
+            if i < 1:
 
-                        datos_crandall[i].append(acimut_i + datos_crandall[0][1])
-                        datos_crandall[i].append((math.sin(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
-                        datos_crandall[i].append((math.cos(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
-                        datos_crandall[i].append((datos_crandall[i][5]*datos_crandall[i][4])/datos_crandall[i][2]) 
-                        datos_crandall[i].append(((datos_crandall[i][5])**2)/datos_crandall[i][2])            
-                        datos_crandall[i].append(((datos_crandall[i][4])**2)/datos_crandall[i][2]) 
-                        suma_px=datos_crandall[i][4]
-                        suma_py=datos_crandall[i][5]
-                        suma_correc1 = datos_crandall[i][6]
-                        suma_correc2 = datos_crandall[i][7]
-                        suma_correc3 = datos_crandall[i][8]
-                        sumatoria_proyecciones_norte = inic_pol_y + datos_crandall[i][5]
-                        sumatoria_proyecciones_este = inic_pol_x + datos_crandall[i][4]
-                        i += 1
+                datos_crandall[i].append(acimut_i + datos_crandall[0][1])
+                datos_crandall[i].append((math.sin(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
+                datos_crandall[i].append((math.cos(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
+                datos_crandall[i].append((datos_crandall[i][5]*datos_crandall[i][4])/datos_crandall[i][2]) 
+                datos_crandall[i].append(((datos_crandall[i][5])**2)/datos_crandall[i][2])            
+                datos_crandall[i].append(((datos_crandall[i][4])**2)/datos_crandall[i][2]) 
+                suma_px=datos_crandall[i][4]
+                suma_py=datos_crandall[i][5]
+                suma_correc1 = datos_crandall[i][6]
+                suma_correc2 = datos_crandall[i][7]
+                suma_correc3 = datos_crandall[i][8]
+                sumatoria_proyecciones_norte = inic_pol_y + datos_crandall[i][5]
+                sumatoria_proyecciones_este = inic_pol_x + datos_crandall[i][4]
+                i += 1
 
-                    if datos_crandall[i-1][3] >= 180:
-                        acimut_deltas = datos_crandall[i-1][3] - 180 + datos_crandall[i][1]
-                    else:
-                        acimut_deltas = datos_crandall[i-1][3] + 180 + datos_crandall[i][1]
+            if datos_crandall[i-1][3] >= 180:
+                acimut_deltas = datos_crandall[i-1][3] - 180 + datos_crandall[i][1]
+            else:
+                acimut_deltas = datos_crandall[i-1][3] + 180 + datos_crandall[i][1]
 
-                    if acimut_deltas >= 360:
-                        acimut_deltas -= 360
+            if acimut_deltas >= 360:
+                acimut_deltas -= 360
 
-                    datos_crandall[i].append(acimut_deltas) 
+            datos_crandall[i].append(acimut_deltas) 
 
-                    proyec_punto = proyecciones(acimut_deltas, datos_crandall[i][2])
+            proyec_punto = proyecciones(acimut_deltas, datos_crandall[i][2])
 
-                    datos_crandall[i].append(proyec_punto[0]) 
-                    datos_crandall[i].append(proyec_punto[1]) 
+            datos_crandall[i].append(proyec_punto[0]) 
+            datos_crandall[i].append(proyec_punto[1]) 
 
-                    suma_px = datos_crandall[i][4] + suma_px
-                    suma_py = datos_crandall[i][5] + suma_py
+            suma_px = datos_crandall[i][4] + suma_px
+            suma_py = datos_crandall[i][5] + suma_py
 
-                    sumatoria_proyecciones_norte = sumatoria_proyecciones_norte + datos_crandall[i][5]
+            sumatoria_proyecciones_norte = sumatoria_proyecciones_norte + datos_crandall[i][5]
 
-                    sumatoria_proyecciones_este = sumatoria_proyecciones_este + datos_crandall[i][4]           
+            sumatoria_proyecciones_este = sumatoria_proyecciones_este + datos_crandall[i][4]           
 
-                    datos_crandall[i].append((datos_crandall[i][5]*datos_crandall[i][4])/datos_crandall[i][2]) 
+            datos_crandall[i].append((datos_crandall[i][5]*datos_crandall[i][4])/datos_crandall[i][2]) 
 
-                    datos_crandall[i].append(((datos_crandall[i][5])**2)/datos_crandall[i][2]) 
+            datos_crandall[i].append(((datos_crandall[i][5])**2)/datos_crandall[i][2]) 
 
-                    datos_crandall[i].append(((datos_crandall[i][4])**2)/datos_crandall[i][2])         
+            datos_crandall[i].append(((datos_crandall[i][4])**2)/datos_crandall[i][2])         
 
-                    suma_correc1 = datos_crandall[i][6] + suma_correc1
+            suma_correc1 = datos_crandall[i][6] + suma_correc1
 
-                    suma_correc2 = datos_crandall[i][7] + suma_correc2
+            suma_correc2 = datos_crandall[i][7] + suma_correc2
 
-                    suma_correc3 = datos_crandall[i][8] + suma_correc3
+            suma_correc3 = datos_crandall[i][8] + suma_correc3
 
-                    i += 1
-                    d += 1
-                else:
-                    continue        
+            i += 1
+            d += 1
+        else:
+            continue        
     
 
 
