@@ -132,7 +132,20 @@ def crandall():
 
     print(acimut_i)
     print(acimut_f)
-
+    
+    deltas = cant_deltas(ruta)
+    datos_crandall=[]
+    
+    with open(ruta, newline='') as File:
+        reader = csv.DictReader(File)
+        for row in reader:
+            delta = row['Delta']
+            angulo_observado = float(row['Angulo'])
+            distancia = float(row['Distancia'])
+            
+            linea=[delta,angulo_observado,distancia]
+            datos_crandall.append(linea.copy())
+    
 
 
 def brujula():
