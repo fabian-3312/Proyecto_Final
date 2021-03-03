@@ -104,6 +104,17 @@ def acimut_poligonal(acimut_anterior, angulo_observado):
     return acimut 
 
 
+def transito():
+
+    print()
+    print('='*173)
+    print()
+    print('{:^173}'.format('A J U S T E  D E  P O L I G O N A L  P O R  E L  M E T O D O  D E  T R A N S I T O'))
+    print()
+    print('='*173)
+    print()
+
+
 def crandall():
     
     print()
@@ -241,7 +252,7 @@ def crandall():
                 datos_crandall_2[j].append(inic_pol_y + datos_crandall_2[j][5] - datos_crandall_2[j][9])
                 datos_crandall_2[j].append(inic_pol_x + datos_crandall_2[j][4] - datos_crandall_2[j][10])
                 j += 1
-                
+
             else:
                 
                 suma1 = suma1 + datos_crandall_2[j][6]
@@ -690,7 +701,15 @@ def main():
             crandall()
         elif solucion == '0':
             print('='*173)
-            brujula()
+            opcion = input('¿Desea realizar el ajuste por el metodo de Brujula o Transito? [Brujula=1][Transito=0]: ')
+            if opcion == '1':
+                brujula()
+            elif opcion == '0':
+                Transito()
+            elif opcion != '1' and opcion != '0':
+                print('='*173)
+                print('El numero digitado no es valido, intente nuevamente')
+                print('='*173)
         elif solucion != '1' or solucion != '0':
             print('='*173)
             print('El numero digitado no es valido, intente nuevamente')
