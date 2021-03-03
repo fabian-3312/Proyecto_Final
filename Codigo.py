@@ -900,7 +900,7 @@ def brujula():
     print()
         
     auxiliar = r'C:\Users\PC Smart\Downloads\POLIGONAL_CERRADA_1.csv'
-    file = input(" Indicar la ruta del archivo, ejemplo({}):".format(auxiliar))
+    file = input(" Indicar la ruta del archivo, ejemplo({}): ".format(auxiliar))
     ruta = os.path.normpath(file)
     exist = os.path.isfile(ruta)
 
