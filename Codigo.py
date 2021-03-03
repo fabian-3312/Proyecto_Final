@@ -263,7 +263,14 @@ def transito():
 
                         j += 1
                     else:
-                        j += 1   
+                        j += 1
+
+            elif ang_externos == '0':
+
+            elif ang_externos != '0' or ang_externos != '1':
+                print('='*173)
+                print('La opcion digitada no es valida, intente nuevamente')
+                print('='*173)   
 
     else:
         print()
