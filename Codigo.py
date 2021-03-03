@@ -224,7 +224,46 @@ def transito():
                             contraazdn = azdn +180
                             
                         datos_medidos[d].append(azdn)
-                        d += 1                     
+
+                        d += 1
+                        
+                l = 2
+
+                for dato in range(n):
+                    proyect_punto = proyecciones(datos_medidos[l][5], datos_medidos[l][2])
+                    datos_medidos[l].append(proyect_punto[1])
+                    datos_medidos[l].append(proyect_punto[0])
+
+                    l += 1
+
+                i = 1
+                sumaproye = 0.0
+                sumaproyn = 0.0
+
+                for proy in range(n+1):
+                    if i != 1:
+                        sumaproye = sumaproye + datos_medidos[i][7]
+                        sumaproyn = sumaproyn + datos_medidos[i][6]
+
+                        i += 1
+                    else:
+                        i += 1
+
+                suma_dist =[]
+                sumatoria_dist = 0.0
+                j = 2
+
+                sumatoria_dist = datos_medidos[j][2]
+                suma_dist.append(sumatoria_dist)
+
+                for dist in range(n):
+                    if j > 2:
+                        sumatoria_dist = sumatoria_dist + datos_medidos[j][2]
+                        suma_dist.append(sumatoria_dist)
+
+                        j += 1
+                    else:
+                        j += 1   
 
     else:
         print()
