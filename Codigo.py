@@ -705,7 +705,7 @@ def main():
             if opcion == '1':
                 brujula()
             elif opcion == '0':
-                Transito()
+                transito()
             elif opcion != '1' and opcion != '0':
                 print('='*173)
                 print('El numero digitado no es valido, intente nuevamente')
