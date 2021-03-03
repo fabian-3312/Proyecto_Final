@@ -350,8 +350,8 @@ def crandall():
                 else:
                     continue
                     
-            x[100000:100000] = [fin_gps_x]
-            y[100000:100000] = [fin_gps_y]
+            x[100000:100000] = [fin_gps_X]
+            y[100000:100000] = [fin_gps_Y]
             
             print('='*173)
             print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO + AJUSTADO + FECHA + HORA EXACTA DE ELAVORACION')
