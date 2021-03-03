@@ -156,7 +156,7 @@ def crandall():
     suma_correc3 = 0.0
 
     d = 0
-    
+
     for dato in datos_crandall:
         if d < deltas:
             if i < 1:
@@ -214,9 +214,10 @@ def crandall():
             d += 1
         else:
             continue
-    error_este = fin_pol_x - sumatoria_proyecciones_este
+
+    error_este = fin_pol_X - sumatoria_proyecciones_este
     
-    error_norte = fin_pol_y - sumatoria_proyecciones_norte
+    error_norte = fin_pol_Y - sumatoria_proyecciones_norte
     
     A = ((error_este * suma_correc1) - (error_norte * suma_correc3)) / ((suma_correc3 * suma_correc2) - (suma_correc1 ** 2))
     
@@ -240,6 +241,7 @@ def crandall():
                 datos_crandall_2[j].append(inic_pol_y + datos_crandall_2[j][5] - datos_crandall_2[j][9])
                 datos_crandall_2[j].append(inic_pol_x + datos_crandall_2[j][4] - datos_crandall_2[j][10])
                 j += 1
+                
             else:
                 
                 suma1 = suma1 + datos_crandall_2[j][6]
