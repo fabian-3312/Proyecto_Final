@@ -319,6 +319,54 @@ def crandall():
                     i += 1
 
             print('='*173)
+            
+            
+            d = -1
+            j = 0
+            x = []
+            y = []
+            
+            for dato in datos_crandall_2:
+                if d < deltas:
+                    if j < 1:
+                        x.append(inic_gps_x)
+                        y.append(inic_gps_y)
+                        
+                        x.append(inic_pol_x)
+                        y.append(inic_pol_y)
+                        
+                        x.append(datos_crandall_2[j][12])
+                        y.append(datos_crandall_2[j][11])
+                        
+                        j += 1
+                        
+                    else:
+                        x.append(datos_crandall_2[j][12])
+                        y.append(datos_crandall_2[j][11])
+                        
+                        j += 1
+                    d += 1
+                    
+                else:
+                    continue
+                    
+            x[100000:100000] = [fin_gps_x]
+            y[100000:100000] = [fin_gps_y]
+            
+            print('='*173)
+            print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO + AJUSTADO + FECHA + HORA EXACTA DE ELAVORACION')
+            print('='*173)
+            print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+            print('='*173)
+            
+            i = 0
+            
+            fig = plt.figure(figsize=(6,6))
+            ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+            ax.set_title('POLIGONO AJUSTADO', color='0.1')
+            plt.plot(x, y) 
+            plt.plot(x, y, 'ro', linewidth=3)
+            plt.show()
 
     else:
         print()
