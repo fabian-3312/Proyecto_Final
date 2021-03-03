@@ -36,6 +36,7 @@ def cant_deltas(archivo):
     with open(archivo, newline='') as File:
         reader = csv.DictReader(File)
         deltas = [fila['Delta'] for fila in reader]
+        
     return len(deltas)-1
 
 
@@ -277,12 +278,12 @@ def crandall():
     print('{:^7}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('(m)'), '{:^8}'.format(''), '{:^8}'.format('X'), '{:^8}'.format('Y'), '{:^8}'.format(''), '{:^8}'.format(''), '{:^8}'.format(''), '{:^11}'.format('COORDE Y'), '{:^12}'.format('COORDE X'),'{:^8}'.format('Y'), '{:^10}'.format('X'),sep='    ')
     print('='*173)
 
-   i = 0
-
-   header = ['DELTA','ANGULO','DISTANCIA','ACIMUTH','PROYECCION_X', 'PROYECCION_Y','1','2','3','CORRECCION_Y','CORRECCION_X','COORDENADA_Y','COORDENADA_X']
-   salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y %H_%M_%S"))))
-
-   with open(salida, 'w', newline='') as csvfile:
+    i = 0
+ 
+    header = ['DELTA','ANGULO','DISTANCIA','ACIMUTH','PROYECCION_X', 'PROYECCION_Y','1','2','3','CORRECCION_Y','CORRECCION_X','COORDENADA_Y','COORDENADA_X']
+    salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y %H_%M_%S"))))
+ 
+    with open(salida, 'w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=header)
         writer.writeheader()
         
@@ -295,7 +296,7 @@ def crandall():
 
             i += 1
 
-   print('='*173)
+    print('='*173)
 
 def brujula():
     
