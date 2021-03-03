@@ -268,6 +268,34 @@ def crandall():
                 datos_crandall_2[j].append(datos_crandall_2[j-1][12] + datos_crandall_2[j][4] - (datos_crandall_2[j][10] - datos_crandall_2[j-1][10]))# 12 ajuste coordenada este
                 
                 j += 1
+                
+                
+                
+    
+    print('='*173)
+    print('{:^7}'.format('DELTA'), '{:^8}'.format('ANGULO'), '{:^8}'.format('DISTANCIA'), '{:^8}'.format('AZIMUTH'), '{:^8}'.format('PROYECC'), '{:^8}'.format('PROYECC'), '{:^8}'.format('1'), '{:^8}'.format('2'), '{:^8}'.format('3'), '{:^10}'.format('CORRECC'), '{:^11}'.format('CORRECC'),'{:^10}'.format('COORD'),'{:^8}'.format('COORD'),sep='    ')    
+    print('{:^7}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('(m)'), '{:^8}'.format(''), '{:^8}'.format('X'), '{:^8}'.format('Y'), '{:^8}'.format(''), '{:^8}'.format(''), '{:^8}'.format(''), '{:^11}'.format('COORDE Y'), '{:^12}'.format('COORDE X'),'{:^8}'.format('Y'), '{:^10}'.format('X'),sep='    ')
+    print('='*173)
+
+   i = 0
+
+   header = ['DELTA','ANGULO','DISTANCIA','ACIMUTH','PROYECCION_X', 'PROYECCION_Y','1','2','3','CORRECCION_Y','CORRECCION_X','COORDENADA_Y','COORDENADA_X']
+   salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y %H_%M_%S"))))
+
+   with open(salida, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=header)
+        writer.writeheader()
+        
+        for dato in datos_crandall_2:
+            
+            
+            print('{:^7}'.format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:8.4f}'.format(dato[3]), '{:10.3f}'.format(dato[4]), '{:10.3f}'.format(dato[5]), '{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+010.3f}'.format(dato[9]), '{:+010.3f}'.format(dato[10]), '{:10.3f}'.format(dato[11]),'{:10.3f}'.format(dato[12]), sep='   ')
+            datos={'DELTA':dato[0], 'ANGULO':'{:10}'.format(dato[1]),'DISTANCIA':'{:8.4f}'.format(dato[2]),'ACIMUTH':'{:10}'.format(dec_gms(dato[3])), 'PROYECCION_X':'{:+10.3f}'.format(dato[4]),'PROYECCION_Y':'{:+010.3f}'.format(dato[5]), '1':'{:+010.3f}'.format(dato[6]),'2':'{:+010.3f}'.format(dato[7]), '3':'{:+010.3f}'.format(dato[8]),'CORRECCION_Y':'{:+11.3f}'.format(dato[9]), 'CORRECCION_X':'{:+11.3f}'.format(dato[10]),'COORDENADA_Y':'{:10.3f}'.format(dato[11]),'COORDENADA_X':'{:11.3f}'.format(dato[12])}
+            writer.writerow(datos)
+
+            i += 1
+
+   print('='*173)
 
 def brujula():
     
