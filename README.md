@@ -1,4 +1,4 @@
-# Proyecto_Final-Logica_de_programacion
+# Proyecto_Final-Lógica_de_programación
 
 
 
