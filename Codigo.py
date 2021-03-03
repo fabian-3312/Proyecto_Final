@@ -213,9 +213,48 @@ def crandall():
             i += 1
             d += 1
         else:
-            continue        
+            continue
+    error_este = fin_pol_x - sumatoria_proyecciones_este
     
-
+    error_norte = fin_pol_y - sumatoria_proyecciones_norte
+    
+    A = ((error_este * suma_correc1) - (error_norte * suma_correc3)) / ((suma_correc3 * suma_correc2) - (suma_correc1 ** 2))
+    
+    B = ((error_norte * suma_correc1) - (error_este * suma_correc2)) / ((suma_correc3 * suma_correc2) - (suma_correc1 ** 2))
+    
+    datos_crandall_2 = []
+    datos_crandall_2 = (datos_crandall.copy())
+    j = 0
+    b = 0
+    
+    for dato in datos_crandall_2:
+        if b < deltas:
+            if j < 1:
+                
+                suma1 = datos_crandall_2[j][6]
+                suma2 = datos_crandall_2[j][7]
+                suma3 = datos_crandall_2[j][8]
+                datos_crandall_2[j].append((B * suma1) + (A * suma2))
+                datos_crandall_2[j].append((B * suma1) + (A * suma2))
+                datos_crandall_2[j].append((A * suma1) + (B * suma3))
+                datos_crandall_2[j].append(inic_pol_y + datos_crandall_2[j][5] - datos_crandall_2[j][9])
+                datos_crandall_2[j].append(inic_pol_x + datos_crandall_2[j][4] - datos_crandall_2[j][10])
+                j += 1
+            else:
+                
+                suma1 = suma1 + datos_crandall_2[j][6]
+                suma2 = suma2 + datos_crandall_2[j][7]
+                suma3 = suma3 + datos_crandall_2[j][8]
+                
+                datos_crandall_2[j].append((B * suma1) + (A * suma2))
+                
+                datos_crandall_2[j].append((A * suma1) + (B * suma3))
+                
+                datos_crandall_2[j].append(datos_crandall_2[j-1][11] + datos_crandall_2[j][5] - (datos_crandall_2[j][9] - datos_crandall_2[j-1][9])) # 11 ajuste coordenada norte
+                
+                datos_crandall_2[j].append(datos_crandall_2[j-1][12] + datos_crandall_2[j][4] - (datos_crandall_2[j][10] - datos_crandall_2[j-1][10]))# 12 ajuste coordenada este
+                
+                j += 1
 
 def brujula():
     
