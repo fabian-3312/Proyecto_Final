@@ -115,6 +115,70 @@ def transito():
     print('='*173)
     print()
 
+    auxiliar = r'C:\Users\PC Smart\Downloads\POLIGONAL_CERRADA_1.csv'
+    file = input("Indicar la ruta del archivo ejemplo({}): ".format(auxiliar))
+    ruta = os.path.normpath(file)
+    exist = os.path.isfile(ruta)
+
+    if exist == True:
+
+        arch = open(ruta, 'r')
+        linea = (arch.readline())
+
+        if linea != 'Delta,Angulo,Distancia\n':
+            print()
+            print('='*173)
+            print('Error al leer el archivo')
+            print()
+            print('Recuerde:','\n','El archivo debe ser (csv) de caso contrario no lo reconocera','\n','El archivo debe estar estructurado de la sigiente manera:')
+            print()
+            print('{:^19}'.format('Delta'),'{:^17}'.format('Angulo'),'{:^34}'.format('Distancia'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('Repetir N veces'),'{:^17}'.format('Repetir N veces'),'{:^34}'.format('Repetir N veces'), sep='|')
+            print('\n','Los nombres de la primera fila deben ser: Delta - Angulo - Distancia. Los nombres deben ser tal cual se muestran(sin comas, espacios o tildes)','\n','Favor realizar la cartera desde la primera final y la primera columna')
+            print('='*173)
+            print('{:^173}'.format('A R R E G L A R  A R C H I V O  Y  V O L E R  A  I N T E N T A R'))
+            print('{:^173}'.format('G R A C I A S'))
+            print('='*173)
+            print()
+
+        else:            
+            n = cant_deltas(ruta)
+            ang_externos = input('¿Angulos externos? [1=si] [0=no]: ') 
+
+            if ang_externos == '1':
+
+                suma_teorica_ang = (n + 2)*180
+
+                cd1n = float(input('ingrese la coordenada norte del punto armado: '))
+                cd1e = float(input('ingrese la coordenada este del punto armado: '))
+                cd2n = float(input('ingrese la coordenada norte del punto visado: '))
+                cd2e = float(input('ingrese la coordenada este del punto visado: '))
+
+                acimut_ref = acimut_linea(cd1e, cd1n, cd2e, cd2n)
+                print('\n','El azimut calculado es: {}'.format(dec_gms(acimut_ref)))
+                print('La sumatoria teorica de los angulos es: {}°'.format(suma_teorica_ang))
+
+                datos_medidos = []
+                datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG','AZIMUTH', 'PRY X', 'PRY Y', 'PRY X COREG', 'PRY Y COREG', 'COORD X', 'COORD'])
+
+    else:
+        print()
+        print('='*140)
+        print(' Favor Revisar la extencion digitada')
+        print()
+        print(' Recuerde:','\n','   La ruta de su archivo debe parecerce a la seguiente y cumplir con sus criterios:')
+        print()
+        print('    C:','Carpeta','Carpeta','Carpeta','....','Nombre del archivo(.)Ruta del archivo', sep=' \ ')
+        print('\n','   La unica separacion entre carpeta y carpeta debe ser (\)','\n','   Verifique el nombre de su archivo, ademas de su extencion, tome como ejemplo el siguiente (Archivo.csv)','\n','   Ingrese la extencion sin comillas o comas al principio y al final')
+        print()
+        print('='*173)
+        print('{:^173}'.format('F A V O R  V O L V E R  A  I N T E N T A R'))
+        print('{:^173}'.format('G R A C I A S'))
+        print('='*173)
+        print()
+
 
 def crandall():
     
