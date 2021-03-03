@@ -163,41 +163,41 @@ def crandall():
             fin_gps_Y = float(input('Ingrese la coordenada y del punto de referencia final: '))
             fin_pol_X = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
             fin_pol_Y = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
-    
+
             acimut_i = acimut_linea(inic_pol_x,inic_pol_y,inic_gps_x,inic_gps_y)
             acimut_f = acimut_linea(fin_pol_X,fin_pol_Y,fin_gps_X,fin_gps_Y)
-    
+
             print(acimut_i)
             print(acimut_f)
-    
+
             deltas = cant_deltas(ruta)
             datos_crandall=[]
-    
+
             with open(ruta, newline='') as File:
                 reader = csv.DictReader(File)
                 for row in reader:
                     delta = row['Delta']
                     angulo_observado = float(row['Angulo'])
                     distancia = float(row['Distancia'])
-    
+
                     linea=[delta,angulo_observado,distancia]
                     datos_crandall.append(linea.copy())
-    
+
             i = 0
-    
+
             suma_px = 0.0
             suma_py = 0.0
             proyec_punto = []
             suma_correc1 = 0.0
             suma_correc2 = 0.0
             suma_correc3 = 0.0
-    
+
             d = 0
-    
+
             for dato in datos_crandall:
                 if d < deltas:
                     if i < 1:
-                    
+
                         datos_crandall[i].append(acimut_i + datos_crandall[0][1])
                         datos_crandall[i].append((math.sin(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
                         datos_crandall[i].append((math.cos(math.radians(datos_crandall[i][3])))*datos_crandall[0][2])
@@ -212,63 +212,63 @@ def crandall():
                         sumatoria_proyecciones_norte = inic_pol_y + datos_crandall[i][5]
                         sumatoria_proyecciones_este = inic_pol_x + datos_crandall[i][4]
                         i += 1
-    
+
                     if datos_crandall[i-1][3] >= 180:
                         acimut_deltas = datos_crandall[i-1][3] - 180 + datos_crandall[i][1]
                     else:
                         acimut_deltas = datos_crandall[i-1][3] + 180 + datos_crandall[i][1]
-    
+
                     if acimut_deltas >= 360:
                         acimut_deltas -= 360
-    
+
                     datos_crandall[i].append(acimut_deltas) 
-    
+
                     proyec_punto = proyecciones(acimut_deltas, datos_crandall[i][2])
-    
+
                     datos_crandall[i].append(proyec_punto[0]) 
                     datos_crandall[i].append(proyec_punto[1]) 
-    
+
                     suma_px = datos_crandall[i][4] + suma_px
                     suma_py = datos_crandall[i][5] + suma_py
-    
+
                     sumatoria_proyecciones_norte = sumatoria_proyecciones_norte + datos_crandall[i][5]
-    
+
                     sumatoria_proyecciones_este = sumatoria_proyecciones_este + datos_crandall[i][4]           
-    
+
                     datos_crandall[i].append((datos_crandall[i][5]*datos_crandall[i][4])/datos_crandall[i][2]) 
-    
+
                     datos_crandall[i].append(((datos_crandall[i][5])**2)/datos_crandall[i][2]) 
-    
+
                     datos_crandall[i].append(((datos_crandall[i][4])**2)/datos_crandall[i][2])         
-    
+
                     suma_correc1 = datos_crandall[i][6] + suma_correc1
-    
+
                     suma_correc2 = datos_crandall[i][7] + suma_correc2
-    
+
                     suma_correc3 = datos_crandall[i][8] + suma_correc3
-    
+
                     i += 1
                     d += 1
                 else:
                     continue
-                
+
             error_este = fin_pol_X - sumatoria_proyecciones_este
-    
+
             error_norte = fin_pol_Y - sumatoria_proyecciones_norte
-    
+
             A = ((error_este * suma_correc1) - (error_norte * suma_correc3)) / ((suma_correc3 * suma_correc2) - (suma_correc1 ** 2))
-    
+
             B = ((error_norte * suma_correc1) - (error_este * suma_correc2)) / ((suma_correc3 * suma_correc2) - (suma_correc1 ** 2))
-    
+
             datos_crandall_2 = []
             datos_crandall_2 = (datos_crandall.copy())
             j = 0
             b = 0
-    
+
             for dato in datos_crandall_2:
                 if b < deltas:
                     if j < 1:
-                    
+
                         suma1 = datos_crandall_2[j][6]
                         suma2 = datos_crandall_2[j][7]
                         suma3 = datos_crandall_2[j][8]
@@ -278,49 +278,46 @@ def crandall():
                         datos_crandall_2[j].append(inic_pol_y + datos_crandall_2[j][5] - datos_crandall_2[j][9])
                         datos_crandall_2[j].append(inic_pol_x + datos_crandall_2[j][4] - datos_crandall_2[j][10])
                         j += 1
-    
+
                     else:
-                    
+
                         suma1 = suma1 + datos_crandall_2[j][6]
                         suma2 = suma2 + datos_crandall_2[j][7]
                         suma3 = suma3 + datos_crandall_2[j][8]
-    
+
                         datos_crandall_2[j].append((B * suma1) + (A * suma2))
-    
+
                         datos_crandall_2[j].append((A * suma1) + (B * suma3))
-    
+
                         datos_crandall_2[j].append(datos_crandall_2[j-1][11] + datos_crandall_2[j][5] - (datos_crandall_2[j][9] - datos_crandall_2[j-1][9])) # 11 ajuste coordenada norte
-    
+
                         datos_crandall_2[j].append(datos_crandall_2[j-1][12] + datos_crandall_2[j][4] - (datos_crandall_2[j][10] - datos_crandall_2[j-1][10]))# 12 ajuste coordenada este
-    
+
                         j += 1
-    
-    
-    
-    
+
             print('='*173)
             print('{:^7}'.format('DELTA'), '{:^8}'.format('ANGULO'), '{:^8}'.format('DISTANCIA'), '{:^8}'.format('AZIMUTH'), '{:^8}'.format('PROYECC'), '{:^8}'.format('PROYECC'), '{:^8}'.format('1'), '{:^8}'.format('2'), '{:^8}'.format('3'), '{:^10}'.format('CORRECC'), '{:^11}'.format('CORRECC'),'{:^10}'.format('COORD'),'{:^8}'.format('COORD'),sep='    ')    
             print('{:^7}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('(m)'), '{:^8}'.format(''), '{:^8}'.format('X'), '{:^8}'.format('Y'), '{:^8}'.format(''), '{:^8}'.format(''), '{:^8}'.format(''), '{:^11}'.format('COORDE Y'), '{:^12}'.format('COORDE X'),'{:^8}'.format('Y'), '{:^10}'.format('X'),sep='    ')
             print('='*173)
-    
+
             i = 0
-        
+
             header = ['DELTA','ANGULO','DISTANCIA','ACIMUTH','PROYECCION_X', 'PROYECCION_Y','1','2','3','CORRECCION_Y','CORRECCION_X','COORDENADA_Y','COORDENADA_X']
             salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y %H_%M_%S"))))
-        
+
             with open(salida, 'w', newline='') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=header)
                 writer.writeheader()
-    
+
                 for dato in datos_crandall_2:
-                
-                
+
+
                     print('{:^7}'.format(dato[0]), '{:8.4f}'.format(dato[1]), '{:8.4f}'.format(dato[2]), '{:8.4f}'.format(dato[3]), '{:10.3f}'.format(dato[4]), '{:10.3f}'.format(dato[5]), '{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+010.3f}'.format(dato[9]), '{:+010.3f}'.format(dato[10]), '{:10.3f}'.format(dato[11]),'{:10.3f}'.format(dato[12]), sep='   ')
                     datos={'DELTA':dato[0], 'ANGULO':'{:10}'.format(dato[1]),'DISTANCIA':'{:8.4f}'.format(dato[2]),'ACIMUTH':'{:10}'.format(dec_gms(dato[3])), 'PROYECCION_X':'{:+10.3f}'.format(dato[4]),'PROYECCION_Y':'{:+010.3f}'.format(dato[5]), '1':'{:+010.3f}'.format(dato[6]),'2':'{:+010.3f}'.format(dato[7]), '3':'{:+010.3f}'.format(dato[8]),'CORRECCION_Y':'{:+11.3f}'.format(dato[9]), 'CORRECCION_X':'{:+11.3f}'.format(dato[10]),'COORDENADA_Y':'{:10.3f}'.format(dato[11]),'COORDENADA_X':'{:11.3f}'.format(dato[12])}
                     writer.writerow(datos)
-    
+
                     i += 1
-    
+
             print('='*173)
 
     else:
