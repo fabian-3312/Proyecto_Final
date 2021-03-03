@@ -155,22 +155,24 @@ def crandall():
             print()
 
         else:
-            inic_gps_x = float(input('Ingrese la coordenada X del punto de referencia inicial: '))
-            inic_gps_y = float(input('Ingrese la coordenada Y del punto de referencia inicial: '))
             inic_pol_x = float(input('Ingrese la coordenada X del punto inicial de la poligonal: '))
             inic_pol_y = float(input('Ingrese la coordenada Y del punto inicial de la poligonal: '))
-            fin_gps_X = float(input('Ingrese la coordenada X del punto de referencia final: '))
-            fin_gps_Y = float(input('Ingrese la coordenada y del punto de referencia final: '))
+            inic_gps_x = float(input('Ingrese la coordenada X del punto de referencia inicial: '))
+            inic_gps_y = float(input('Ingrese la coordenada Y del punto de referencia inicial: '))
             fin_pol_X = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
             fin_pol_Y = float(input('Ingrese la coordenada X del punto final de la poligonal: '))
-
+            fin_gps_X = float(input('Ingrese la coordenada X del punto de referencia final: '))
+            fin_gps_Y = float(input('Ingrese la coordenada y del punto de referencia final: '))
+            
             acimut_i = acimut_linea(inic_pol_x,inic_pol_y,inic_gps_x,inic_gps_y)
             acimut_f = acimut_linea(fin_pol_X,fin_pol_Y,fin_gps_X,fin_gps_Y)
 
-            print(acimut_i)
-            print(acimut_f)
+            print('='*173)
+            print('El acimut inicial es: ',dec_gms(acimut_i))
+            print('El acimut final es: ',dec_gms(acimut_f))
 
             deltas = cant_deltas(ruta)
+
             datos_crandall=[]
 
             with open(ruta, newline='') as File:
@@ -272,7 +274,6 @@ def crandall():
                         suma1 = datos_crandall_2[j][6]
                         suma2 = datos_crandall_2[j][7]
                         suma3 = datos_crandall_2[j][8]
-                        datos_crandall_2[j].append((B * suma1) + (A * suma2))
                         datos_crandall_2[j].append((B * suma1) + (A * suma2))
                         datos_crandall_2[j].append((A * suma1) + (B * suma3))
                         datos_crandall_2[j].append(inic_pol_y + datos_crandall_2[j][5] - datos_crandall_2[j][9])
