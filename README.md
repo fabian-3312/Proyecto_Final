@@ -66,6 +66,15 @@ a continuación los pasos a seguir al momento de usar el código.
  2. Descargue **VISUAL STUDIO CODE**   [link de Visual Studio Code](<https://code.visualstudio.com/download)
  3. Para comenzar abrimos el editor de python ( **Visual Studio Code**) y nos aparece al lado izquierdo la opción de crear una nueva carpeta. Digitamos el nombre que deseamos sin olvidar que se debe escribir el .py ejemplo:(antecedentes.py) y empezamos a ejecutar el código.
  4. Recuerde que puede usar otro editor que sea de su preferencia dentro de ellos, también se encuentra **jupyterNotebook**
+ 5. Debe installar en visual Studio las siguientes librerias:
+ - import csv
+ - import os
+ - import math
+ - from datetime import datetime
+ - from matplotlib import pyplot as plt
+ 
+ RECUERDE: En consola puedes instalar las librerias usando (python -m pip install (nombre de la libreria a importar))
+
  
  
 
