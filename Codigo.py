@@ -133,8 +133,8 @@ def transito():
             print('Recuerde:','\n','El archivo debe ser (csv) de caso contrario no lo reconocera','\n','La manera de ingrasar lo angulos deber ser gg.mmss tome como ejemplo el siguiente: (17°25´36" = 17.2536)','\n','El archivo debe estar estructurado de la sigiente manera: ')
             print()
             print('{:^19}'.format('Delta'),'{:^17}'.format('Angulo'),'{:^34}'.format('Distancia'), sep='|')
-            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo gg.mmss)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
-            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo gg.mmss)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
             print('{:^19}'.format('Repetir N veces'),'{:^17}'.format('Repetir N veces'),'{:^34}'.format('Repetir N veces'), sep='|')
             print('\n','Los nombres de la primera fila deben ser: Delta - Angulo - Distancia. Los nombres deben ser tal cual se muestran(sin comas, espacios o tildes)','\n','Favor realizar la cartera desde la primera final y la primera columna','\n','Recuerde que al ser una poligonal cerrada esta debe cerrar en mismo delta de inicio')
             print('='*173)
@@ -264,6 +264,113 @@ def transito():
                         j += 1
                     else:
                         j += 1
+                i = 0
+                
+                proyecn_correg = []
+                proyece_correg = []
+                
+                for correccion in range(n):
+                    pncn = (sumaproyn*suma_dist[i])/sumdist
+                    proyecn_correg.append(pncn)
+                    pecn = (sumaproye*suma_dist[i])/sumdist
+                    proyece_correg.append(pecn)
+                    
+                    i += 1
+                    
+                j = 2
+                d = 0
+                
+                for proyeccion in range(n):
+                    pnn = datos_medidos[j][6] + proyecn_correg[d]
+                    datos_medidos[j].append(pnn)
+                    pen = datos_medidos[j][7] + proyece_correg[d]
+                    datos_medidos[j].append(pen)
+                    
+                    j += 1
+                    d += 1
+                    
+                i = 1
+                datos_medidos [1][:] += [0, 0, 0, 0, cd1n, cd1e]
+                
+                for coord in range(n+1):
+                    if i > 1:
+                        coordnn = datos_medidos[i-1][10] + datos_medidos[i][8]
+                        datos_medidos[i].append(coordnn)
+                        coorden = datos_medidos[i-1][11] + datos_medidos[i][9]
+                        datos_medidos[i].append(coorden)
+                        
+                        i += 1
+                    else:
+                        i += 1
+                        
+                print()
+                
+                print('='*173)
+                print('{:^10}'.format('DELTA'), '{:^8}'.format('ANGULO'), '{:^8}'.format('DISTANC'), '{:^10}'.format('ANGULO'), '{:^10}'.format('AZIMUTH'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^10}'.format('PROYECC'), '{:^11}'.format('COORDEN'), '{:^11}'.format('COORDEN'), sep='\t')
+                print('{:^10}'.format(''), '{:^8}'.format('OBSERV'), '{:^8}'.format('N'), '{:^10}'.format('CORREGIDO'), '{:^10}'.format(''), '{:^10}'.format('Y'), '{:^10}'.format('X'), '{:^10}'.format('CORR Y'), '{:^10}'.format('CORR X'), '{:^11}'.format('Y'), '{:^11}'.format('X'), sep='\t')
+                print('='*173)
+                
+                i = 0
+                
+                encabezado = ['Delta','Angulo_Observado','Distancia','Angulo_Corregido','Acimut','Proy_Y','Proy_X','Proy_Corregida_Y','Proy_Corregida_X','Coord_Y','Coord_X']
+                salida = os.path.join(os.path.dirname(ruta),'{0}_AJUSTADA_{1}.csv'.format(os.path.basename(ruta).split('.')[0],str(datetime.now().strftime("%d_%m_%Y %H_%M_%S"))))
+                with open(salida, 'w', newline='') as csvfile:
+                    writer = csv.DictWriter(csvfile, fieldnames=encabezado)
+                    writer.writeheader()
+                    
+                    for dato in datos_medidos:
+                        if i == 0:
+                            i += 1
+                            continue
+                            
+                        print('{:^10}'.format(dato[0]), '{:8.4f}'.format(dato[1]), '{:^8.4f}'.format(dato[2]), '{:^10}'.format(dec_gms(dato[4])), '{:^10}'.format(dec_gms(dato[5])), '{:+010.3f}'.format(dato[6]), '{:+010.3f}'.format(dato[7]), '{:+010.3f}'.format(dato[8]), '{:+10.3f}'.format(dato[9]), '{:11.3f}'.format(dato[10]), '{:11.3f}'.format(dato[11]), sep='\t')
+                        datos={'Delta':dato[0], 'Angulo_Observado':'{:8.4f}'.format(dato[1]),'Distancia':'{:8.4f}'.format(dato[2]),'Angulo_Corregido':'{:10}'.format(dec_gms(dato[4])), 'Acimut':'{:10}'.format(dec_gms(dato[5])),'Proy_Y':'{:+010.3f}'.format(dato[6]), 'Proy_X':'{:+010.3f}'.format(dato[7]),'Proy_Corregida_Y':'{:+010.3f}'.format(dato[8]), 'Proy_Corregida_X':'{:+010.3f}'.format(dato[9]),'Coord_Y':'{:11.3f}'.format(dato[10]), 'Coord_X':'{:11.3f}'.format(dato[11])}
+                        writer.writerow(datos)
+                        
+                        i +=1
+                        
+                
+                print('='*173)
+                
+                d = 0
+                j = 0
+                x = []
+                y = []
+                
+                for dato in datos_medidos :
+                    if d < (n+1):
+                        if j < 1:
+                            x.append(cd2e)
+                            y.append(cd2n)
+                            x.append(cd1e)
+                            y.append(cd1n)
+                            
+                            j += 1
+                        else:
+                            x.append(datos_medidos[j][11])
+                            y.append(datos_medidos[j][10])
+                            
+                            j += 1
+                            d +=1
+                    else:
+                        continue
+                
+                print('='*173)
+                print('SU ARCHIVO AJUSTADO SERA ENVIADO A LA MISMA DIRECCION DEL ARCHIVO LEIDO CON EL NOMBRE DEL ARCHIVO LEIDO + AJUSTADO + FECHA + HORA EXACTA DE ELAVORACION')
+                print('='*173)
+                print('{:^173}'.format('P R O G R A M A  T E R M I N A D O'))
+                print('='*173)
+                
+                i =0
+                
+                fig = plt.figure(figsize=(6,6))
+                ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+                ax.set_title('POLIGONO AJUSTADO', color='0.1')
+                plt.plot(x, y)
+                plt.plot(x, y, 'ro', linewidth=3)
+                plt.show()
+             
+               
 
             elif ang_externos == '0':
                 suma_teorica_ang = (n - 2)*180
@@ -540,8 +647,8 @@ def crandall():
             print('Recuerde:','\n','El archivo debe ser (csv) de caso contrario no lo reconocera','\n','La manera de ingrasar lo angulos deber ser gg.mmss tome como ejemplo el siguiente: (17°25´36" = 17.2536)','\n','El archivo debe estar estructurado de la sigiente manera: ')
             print()
             print('{:^19}'.format('Delta'),'{:^17}'.format('Angulo'),'{:^34}'.format('Distancia'), sep='|')
-            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(gg.mmss)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
-            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(gg.mmss)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
+            print('{:^19}'.format('(Nombre del delta)'),'{:^17}'.format('(Angulo decimal)'),'{:^34}'.format('(Distancia-puede ser con decimales)'), sep='|')
             print('{:^19}'.format('Repetir N veces'),'{:^17}'.format('Repetir N veces'),'{:^34}'.format('Repetir N veces'), sep='|')
             print('\n','Los nombres de la primera fila deben ser: Delta - Angulo - Distancia. Los nombres deben ser tal cual se muestran(sin comas, espacios o tildes)','\n','Favor realizar la cartera desde la primera final y la primera columna')
             print('='*173)
