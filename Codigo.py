@@ -162,6 +162,69 @@ def transito():
 
                 datos_medidos = []
                 datos_medidos.append(['DELTA', 'ANG OBSER', 'DIST', 'ANG OBSERV DEC', 'ANG OBSER CORREG','AZIMUTH', 'PRY X', 'PRY Y', 'PRY X COREG', 'PRY Y COREG', 'COORD X', 'COORD'])
+                
+                j = 0
+                sumang = 0.0
+                sumdist = 0.0
+                
+                with open(ruta, newline='') as File:
+                    reader = csv.DictReader(File)
+                    for row in reader:
+                        nombre_delta = row['Delta']
+                        ang_observado = float(row['Angulo'])
+                        distancia = float(row['Distancia'])
+                        datos_linea = [nombre_delta, ang_observado, distancia, gms_dec(ang_observado)]
+                        datos_medidos.append(datos_linea.copy())
+                        
+                for dato in datos_medidos:
+                    if j > 1:
+                        sumdist = sumdist + datos_medidos[j][2]
+                        sumang = sumang + datos_medidos[j][3]
+                        j += 1
+                    else:
+                        j += 1
+                
+                error_angular = suma_teorica_ang-sumang
+                cang = error_angular/n
+                
+                i = 1
+                
+                for correccion_ang in range(n+1):
+                    cangulo = datos_medidos[i][3] + cang
+                    datos_medidos[i].append(cangulo)
+                    
+                    i += 1
+                    
+                d = 1
+                
+                for dato in range(n+1):
+                    if d == 1:
+                        azd1 = (datos_medidos[1][4] + acimut_ref)
+                        if azd1 > 360:
+                            azd1 = azd1 - 360
+                        else:
+                            azd1 == azd1
+                        if azd1 > 180:
+                            contraazdn = azd1 - 180
+                        else:
+                            contraazdn = azd1 +180
+                        datos_medidos[d].append(azd1)
+                        
+                        d += 1
+                    
+                    elif d > 1:
+                        azdn = (datos_medidos[d][4] + contraazdn)
+                        if azdn > 360:
+                            azdn = azdn-360
+                        else:
+                            azdn == azdn
+                        if azdn > 180:
+                            contraazdn = azdn - 180
+                        else:
+                            contraazdn = azdn +180
+                            
+                        datos_medidos[d].append(azdn)
+                        d += 1                     
 
     else:
         print()
